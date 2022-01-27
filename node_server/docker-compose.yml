@@ -1,0 +1,8 @@
+version: '3'
+services:
+  node_server:
+    container_name: node_server
+    build: .
+    ports:
+      - 49160:8080
+    tty: true
