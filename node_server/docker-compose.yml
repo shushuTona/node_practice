@@ -6,3 +6,4 @@ services:
     ports:
       - 49160:8080
     tty: true
+    restart: always
