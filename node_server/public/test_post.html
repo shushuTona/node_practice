@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>test_post</title>
+</head>
+<body>
+<form method="post" action="/test/post" name="user_search">
+<input type="text" name="id">
+<button type="submit">検索</button>
+<p class="result_message"></p>
+</form>
+
+<script>
+    const formElem = document.forms.user_search;
+    const idInputElem = document.querySelector('input[name="id"]');
+    const submitBtnElem = document.querySelector('button[type="submit"]');
+    const resultMessage = document.querySelector('.result_message');
+
+    const submitHandler = async (event) => {
+        event.preventDefault();
+        resultMessage.innerHTML = '検索中...';
+
+        const postData = await fetch('/test/post', {
+                                    method: 'post',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        id: event.target.id.value
+                                    })
+                                })
+                                .then((res) => {
+                                    return res.json();
+                                });
+
+        if(postData.error){
+            resultMessage.textContent = '対象は存在しませんでした。';
+        } else {
+            const {id, name, age} = postData;
+            resultMessage.innerHTML = `ID : ${id}<br>NAME : ${name}<br>AGE : ${age}`;
+        }
+
+        console.log(postData);
+    }
+
+    formElem.addEventListener('submit', submitHandler);
+</script>
+</body>
+</html> 

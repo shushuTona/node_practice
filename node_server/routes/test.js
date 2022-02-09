@@ -65,6 +65,24 @@ router.get('/get/:user_id', (req, res, next) => {
     res.send(findResult);
 });
 
+router.post('/post', (req, res) => {
+    console.log(req.body);
+    const userId = Number(req.body.id);
+
+    if(userId){
+        const findResult = user_list.find((user_obj) => {
+            return user_obj.id === userId;
+        });
+
+        if(findResult){
+            findResult['error'] = '';
+            return res.json(findResult);
+        }
+    }
+
+    res.json({error: 'not found'});
+});
+
 /**
  * URL : /users/100/item/200
  *
