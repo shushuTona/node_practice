@@ -5,15 +5,15 @@ const path = require('path');
 
 // router
 const { testRoutePath, testRouter } = require('../routes/test');
-
-// middleware
-const notFound = require('../middleware/notFound');
-const defaultError = require('../middleware/defaultError');
+const { ejsTmpRoutePath, ejsTmpRouter } = require('../routes/ejsTmp');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
 const app = express();
+
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'ejs');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -21,11 +21,12 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 // publicのファイルをそれぞれ表示・読み込みできるように設定
 app.use(express.static('public'));
 
-// test配下のルーティング設定
+// ルーティング設定
 app.use(testRoutePath, testRouter);
+app.use(ejsTmpRoutePath, ejsTmpRouter);
 
-app.use(notFound);
-app.use(defaultError);
+app.use(require('../middleware/notFound'));
+app.use(require('../middleware/defaultError'));
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);

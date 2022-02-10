@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<%- include("./head.ejs", title) %>
+
+<body>
+    <ul>
+        <% for (let item of items) { %>
+            <li><%- item.name %></li>
+        <% } %>
+    </ul>
+</body>
+</html>

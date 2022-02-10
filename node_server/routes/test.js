@@ -1,5 +1,10 @@
+const fs = require("fs");
+const path = require('path');
 const express = require('express');
 const router = express.Router();
+
+const jsonFilePath = path.join(__dirname, '../server/user.json');
+const userList = JSON.parse(fs.readFileSync(jsonFilePath));
 
 router.use((req, res, next) => {
     console.log('test dir');
@@ -30,27 +35,9 @@ router.get(/.*test2$/, (req, res) => {
     res.send('last test2');
 });
 
-const user_list = [
-    {
-        id: 100,
-        name: 'test1',
-        age: 20,
-    },
-    {
-        id: 200,
-        name: 'test2',
-        age: 25,
-    },
-    {
-        id: 300,
-        name: 'test3',
-        age: 30,
-    },
-]
-
 router.get('/get/:user_id', (req, res, next) => {
     const userId = Number(req.params.user_id);
-    const findResult = user_list.find((user_obj) => {
+    const findResult = userList.find((user_obj) => {
         return user_obj.id === userId;
     });
 
@@ -70,7 +57,7 @@ router.post('/post', (req, res) => {
     const userId = Number(req.body.id);
 
     if(userId){
-        const findResult = user_list.find((user_obj) => {
+        const findResult = userList.find((user_obj) => {
             return user_obj.id === userId;
         });
 

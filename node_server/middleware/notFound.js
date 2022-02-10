@@ -1,3 +1,5 @@
+const path = require('path');
+
 // 存在しないページの場合404ページにリダイレクトさせる
 const notFound = (req, res, next) => {
     res.status(404);
