@@ -3,6 +3,8 @@
 const express = require('express');
 const path = require('path');
 
+const cookieParser = require('cookie-parser')
+
 // router
 const { testRoutePath, testRouter } = require('../routes/test');
 const { ejsTmpRoutePath, ejsTmpRouter } = require('../routes/ejsTmp');
@@ -18,6 +20,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.use(cookieParser());
 
 // publicのファイルをそれぞれ表示・読み込みできるように設定
 app.use(express.static('public'));

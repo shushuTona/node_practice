@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+// cookie-parserがやっていること
 const getAppCookie = (req) => {
     const rawCookies = req.headers.cookie.split('; ');
     const parsedCookies = {};
@@ -36,6 +37,8 @@ router.get('/', (req, res) => {
     
         res.send('Test cookie page.');
     }
+
+    console.log(req.cookies['test_cookie'], req.cookies['test_cookie'] === res.locals.testCookie);
 });
 
 exports.cookieTmpRoutePath = '/cookie';
