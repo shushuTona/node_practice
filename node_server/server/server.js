@@ -11,6 +11,7 @@ const { testRoutePath, testRouter } = require('../routes/test');
 const { ejsTmpRoutePath, ejsTmpRouter } = require('../routes/ejsTmp');
 const { cookieTmpRoutePath, cookieTmpRouter } = require('../routes/cookie');
 const { sessionTmpRoutePath, sessionTmpRouter } = require('../routes/session');
+const { bcryptRoutePath, bcryptRouter } = require('../routes/bcrypt_password');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -47,6 +48,7 @@ app.use(testRoutePath, testRouter);
 app.use(ejsTmpRoutePath, ejsTmpRouter);
 app.use(cookieTmpRoutePath, cookieTmpRouter);
 app.use(sessionTmpRoutePath, sessionTmpRouter);
+app.use(bcryptRoutePath, bcryptRouter);
 
 app.use(require('../middleware/notFound'));
 
