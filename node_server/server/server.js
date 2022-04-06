@@ -2,6 +2,7 @@
 
 const express = require('express');
 const path = require('path');
+const log4js = require('log4js');
 
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
@@ -24,6 +25,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+log4js.configure(path.join(__dirname, '../server/log4js_setting.json'));
+const logger = log4js.getLogger("server");
+
+logger.debug('起動しました', `https://localhost`)
 
 // cookie設定
 app.use(cookieParser());
