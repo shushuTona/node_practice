@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<%- include("./head.ejs", title) %>
+
+<body>
+    <p>JWT</p>
+
+    <div>
+        <p><label>UserName : <input type="text" name="userName" autocomplete="off"></label></p>
+        <p><label>Password : <input type="password" name="pass" autocomplete="off"></label></p>
+        
+        <button class="createTokenBtn">トークン発行</button>
+        <p class="tokenString"></p>
+
+        <p><label>Token : <input type="text" name="token" autocomplete="off"></label></p>
+        <button class="checkTokenBtn">チェックトークン</button>
+    </div>
+
+    <script>
+        const formText = document.querySelector('[name="userName"]');
+        const formPass = document.querySelector('[name="pass"]');
+        const formToken = document.querySelector('[name="token"]');
+        const createTokenBtn = document.querySelector('.createTokenBtn');
+        const checkTokenBtn = document.querySelector('.checkTokenBtn');
+        const tokenString = document.querySelector('.tokenString');
+
+        createTokenBtn.addEventListener('click', async () => {
+            const data = await fetch('/jwt/createToken', {
+                                    method: 'post',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        userName: formText.value,
+                                        pass: formPass.value,
+                                    })
+                                })
+                                .then((res) => {
+                                    return res.json();
+                                });
+
+            if(
+                data.success
+            ) {
+                tokenString.textContent = data.token;
+            }
+        });
+
+        checkTokenBtn.addEventListener('click', async () => {
+            const data = await fetch('/jwt/checkToken', {
+                                    method: 'post',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': formToken.value
+                                    },
+                                    body: JSON.stringify({
+                                        userName: formText.value,
+                                        pass: formPass.value,
+                                    })
+                                })
+                                .then((res) => {
+                                    return res.json();
+                                });
+
+            console.log(data);
+        });
+    </script>
+</body>
+</html>
