@@ -1,4 +1,4 @@
-function ParseJSONSync ( json ) {
+function parseJSONSync ( json ) {
     try {
         return JSON.parse( json )
     } catch ( err ) {
@@ -6,13 +6,13 @@ function ParseJSONSync ( json ) {
     }
 }
 
-ParseJSONSync( '不正なJSON' );
+parseJSONSync( '不正なJSON' );
 // エラーキャッチ SyntaxError: Unexpected token 不 in JSON at position 0
 //     at JSON.parse( <anonymous>)
-//         at ParseJSONSync (/node_handson/chap2/callbackErrorHandling.js:3:21)
+//         at parseJSONSync (/node_handson/chap2/callbackErrorHandling.js:3:21)
 //         at Object.<anonymous> (/node_handson/chap2/callbackErrorHandling.js:9:1)
 
-function ParseJSONAsync ( json, callback ) {
+function parseJSONAsync_before ( json, callback ) {
     try {
         setTimeout( () => {
             callback( JSON.parse( json ) )
@@ -22,7 +22,7 @@ function ParseJSONAsync ( json, callback ) {
         callback( {} );
     }
 }
-ParseJSONAsync( '不正なJSON', ( result ) => {
+parseJSONAsync_before( '不正なJSON', ( result ) => {
     console.log('parse結果', result );
 } );
 // SyntaxError: Unexpected token 不 in JSON at position 0
@@ -32,11 +32,11 @@ ParseJSONAsync( '不正なJSON', ( result ) => {
 //
 // ・ ”エラーキャッチ”の文言が無い ＝ catchでエラーキャッチ出来てない
 // ・ JSON.parseがどこの関数で呼び出されたのかのスタックトレースが表示されない
-// → setTimeoutのコールバック関数は、ParseJSONAsyncの同期処理が完了した後、イベントループから実行される為、呼び出し元がParseJSONAsyncにならない
+// → setTimeoutのコールバック関数は、parseJSONAsync_beforeの同期処理が完了した後、イベントループから実行される為、呼び出し元がparseJSONAsync_beforeにならない
 //
 // try / catchがsetTimeoutの外にあると、setTimeoutのコールバック関数がイベントループまで届いた後にJSON.parseのエラーが発生する
 
-function ParseJSONAsyncSuccess ( json, callback ) {
+function parseJSONAsync ( json, callback ) {
     setTimeout(() => {
         try {
             callback( null, JSON.parse( json ) );
@@ -45,7 +45,7 @@ function ParseJSONAsyncSuccess ( json, callback ) {
         }
     }, 1000);
 }
-ParseJSONAsyncSuccess( '不正なJSON', ( err, result ) => {
+parseJSONAsync( '不正なJSON', ( err, result ) => {
     console.log( 'parse結果', err, result );
 } );
 // parse結果 SyntaxError: Unexpected token 不 in JSON at position 0
