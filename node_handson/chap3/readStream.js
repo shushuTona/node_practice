@@ -12,6 +12,7 @@ class ReadStream extends stream.Readable {
         ];
     }
 
+    // Node.jsのストリームの内部実装で実行されるメソッド
     // https://nodejs.org/api/stream.html#readable_readsize
     _read ( size ) {
         console.log( '===== _read() =====' );
