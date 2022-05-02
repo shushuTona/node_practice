@@ -37,17 +37,6 @@ class TransformStream extends stream.Transform {
     }
 }
 
-const transformStream = new TransformStream();
-transformStream
-    .on( 'readable', () => {
-        console.log( '===== readable =====' );
-
-        let chunk;
-        while ( ( chunk = transformStream.read() ) !== null ) {
-            console.log( chunk );
-        }
-    } );
-
-transformStream.write( 'Hello\n' );
-transformStream.write( 'Hello World' );
-transformStream.end();
+module.exports = {
+    TransformStream
+}
