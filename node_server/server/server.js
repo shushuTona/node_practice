@@ -2,6 +2,7 @@
 
 const express = require('express');
 const path = require('path');
+// const compression = require('compression');
 const log = require('./log');
 
 const cookieParser = require('cookie-parser')
@@ -14,6 +15,7 @@ const { cookieTmpRoutePath, cookieTmpRouter } = require('../routes/cookie');
 const { sessionTmpRoutePath, sessionTmpRouter } = require('../routes/session');
 const { bcryptRoutePath, bcryptRouter } = require('../routes/bcrypt_password');
 const { jwtRoutePath, jwtRouter } = require('../routes/jwt');
+const { cacheTmpRoutePath, cacheTmpRouter } = require('../routes/cache');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -26,6 +28,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+// app.use(compression()) //gzip compression
 
 // cookie設定
 app.use(cookieParser());
@@ -52,6 +55,7 @@ app.use(cookieTmpRoutePath, cookieTmpRouter);
 app.use(sessionTmpRoutePath, sessionTmpRouter);
 app.use(bcryptRoutePath, bcryptRouter);
 app.use(jwtRoutePath, jwtRouter);
+app.use(cacheTmpRoutePath, cacheTmpRouter);
 
 app.use(require('../middleware/notFound'));
 
