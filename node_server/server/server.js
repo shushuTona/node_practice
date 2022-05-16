@@ -2,7 +2,7 @@
 
 const express = require('express');
 const path = require('path');
-// const compression = require('compression');
+const compression = require('compression');
 const log = require('./log');
 
 const cookieParser = require('cookie-parser')
@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-// app.use(compression()) //gzip compression
+app.use(compression()) //gzip compression
 
 // cookie設定
 app.use(cookieParser());
