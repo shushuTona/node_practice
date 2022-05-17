@@ -16,6 +16,7 @@ const { sessionTmpRoutePath, sessionTmpRouter } = require('../routes/session');
 const { bcryptRoutePath, bcryptRouter } = require('../routes/bcrypt_password');
 const { jwtRoutePath, jwtRouter } = require('../routes/jwt');
 const { cacheTmpRoutePath, cacheTmpRouter } = require('../routes/cache');
+const { authTmpRoutePath, authTmpRouter } = require('../routes/auth');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -56,6 +57,7 @@ app.use(sessionTmpRoutePath, sessionTmpRouter);
 app.use(bcryptRoutePath, bcryptRouter);
 app.use(jwtRoutePath, jwtRouter);
 app.use(cacheTmpRoutePath, cacheTmpRouter);
+app.use(authTmpRoutePath, authTmpRouter);
 
 app.use(require('../middleware/notFound'));
 
