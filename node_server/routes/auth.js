@@ -1,6 +1,6 @@
 const express = require('express');
-var passport = require('passport');
-var LocalStrategy = require('passport-local');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 const router = express.Router();
 
@@ -29,15 +29,22 @@ const varify = (username, password, cb) => {
 }
 passport.use(new LocalStrategy(varify));
 
-passport.serializeUser((user, done) => {
-    done(null, user);
+passport.serializeUser(function(user, done) {
+    process.nextTick(function() {
+        done(null, { id: user.id, username: user.username });
+    });
 });
 
-passport.deserializeUser((user, done) => {
-    done(null, user);
+passport.deserializeUser(function(user, done) {
+    process.nextTick(function() {
+        return done(null, user);
+    });
 });
 
 router.get('/login', function(req, res, next) {
+    console.log(req);
+    console.log(req.session.passport);
+
     const data = {
         title: 'login.ejs'
     };
@@ -46,6 +53,9 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/mypage', function(req, res, next) {
+    console.log(req);
+    console.log(req.session.passport);
+
     const data = {
         title: 'mypage.ejs'
     };
@@ -57,6 +67,14 @@ router.post('/login/password', passport.authenticate('local', {
     successRedirect: '/auth/mypage',
     failureRedirect: '/auth/login'
 }));
+
+router.post('/logout', function(req, res, next) {
+    req.logout();
+
+    console.log(res);
+
+    res.redirect('/auth/login');
+});
 
 exports.authTmpRoutePath = '/auth';
 exports.authTmpRouter = router;

@@ -5,8 +5,9 @@ const path = require('path');
 const compression = require('compression');
 const log = require('./log');
 
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
 
 // router
 const { testRoutePath, testRouter } = require('../routes/test');
@@ -48,6 +49,8 @@ app.use(session({
 
 // publicのファイルをそれぞれ表示・読み込みできるように設定
 app.use(express.static('public'));
+
+app.use(passport.authenticate('session'));
 
 // ルーティング設定
 app.use(testRoutePath, testRouter);
