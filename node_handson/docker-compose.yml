@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    container_name: node_handson
+    build: .
+    volumes:
+      - .:/node_handson
+    ports:
+      - 49161:8080
+    tty: true
+    restart: always

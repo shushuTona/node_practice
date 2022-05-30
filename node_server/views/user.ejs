@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<%- include("./head.ejs", title) %>
+
+<body>
+    <% if(user.id){ %>
+        <div>
+            <p>ID : <%= user.id %></p>
+            <p>NAME : <%= user.name %></p>
+            <p>AGE : <%= user.age %></p>
+        </div>
+    <% } else { %>
+        <p>対象ユーザーは存在しませんでした。</p>
+    <% } %> 
+</body>
+</html>
