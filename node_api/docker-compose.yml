@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    container_name: node_api
+    build: .
+    ports:
+      - 49162:8080
+    volumes:
+      - .:/node_api
+    tty: true
+    restart: always
