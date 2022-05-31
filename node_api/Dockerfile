@@ -1,3 +1,3 @@
-FROM node:16.14.2
+FROM node:18.2
 
 RUN mkdir /node_api
