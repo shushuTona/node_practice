@@ -45,3 +45,43 @@ const assert = require('node:assert/strict');
         tracker.verify();
     })
 })();
+
+// assert.deepStrictEqual
+// check between the actual and expected parameters by deep equality.
+// * In strict mode, assert.deepEqual is a alias of assert.deepStrictEqual.
+//
+// compare the actual and expected parameters by isDeepStrictEqual(internal/util/comparisons.isDeepStrictEqual).
+(() => {
+    // Primitive values are compared using Object.is().
+    assert.deepStrictEqual(NaN, NaN);
+
+    // [[Prototype]] of objects are compared using the === operator.
+    const obj = {};
+    const fakeObj = {};
+    const num = new Number();
+    // Object.setPrototypeOf(fakeObj, Number.prototype);
+    // assert.deepStrictEqual(obj, fakeObj);
+    // + {}
+    // - Number {}
+
+    // assert.deepStrictEqual(num, fakeObj);
+    // + [Number: 0]
+    // - Number {}
+})();
+
+// assert.doesNotMatch
+// when input string doesn't match expected regexp, assert.doesNotMatch returns true.
+(() => {
+    // assert.doesNotMatch('abcdefg', /abc/);
+    // [ERR_ASSERTION]: The input was expected to not match the regular expression /abc/. Input:'abcdefg'
+
+    assert.doesNotMatch('abcdefg', /xyz/);
+})();
+
+// assert.doesNotReject
+// check that async func doesn't reject promise.
+(async () => {
+    await assert.doesNotReject(async() => {
+        throw new SyntaxError('SyntaxError');
+    }, SyntaxError);
+})();
