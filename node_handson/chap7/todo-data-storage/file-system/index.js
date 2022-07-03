@@ -20,7 +20,7 @@ exports.fetchAll = async () => {
 exports.fetchByCompleted = ( completed ) => {
     return exports.fetchAll()
         .then( ( all ) => {
-            all.filter( ( todo ) => {
+            return all.filter( ( todo ) => {
                 return todo.completed === completed;
             } )
         } );
@@ -33,13 +33,13 @@ exports.create = ( todo ) => {
 exports.update = async (id, update) => {
     const fileName = `${ __dirname }/${ id }.json`;
     return readFile( fileName, 'utf8' )
-        .then( ( content ) => {
-            const todo = {
-                ...JSON.parse( content ),
-                ...update
-            }
-            return writeFile( fileName, JSON.stringify( todo ) ).then( () => todo );
-        },
+            .then( ( content ) => {
+                const todo = {
+                    ...JSON.parse( content ),
+                    ...update
+                }
+                return writeFile( fileName, JSON.stringify( todo ) ).then( () => todo );
+            },
             ( err ) => {
                 return err.code === 'ENOENT' ? null : Promise.reject( err );
             }

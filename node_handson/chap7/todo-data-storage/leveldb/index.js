@@ -19,10 +19,10 @@ exports.fetchByCompleted = async ( completed ) => {
     const promises = [];
     for await ( const id of db.createValueStream( {
         gt: `todo-completed-${ completed }:`,
-        lt: `todo-completed-${ completed }:`
+        lt: `todo-completed-${ completed };`
     } ) ) {
         promises.push(
-            db.get( `todo:${ id }` ).then( JSON.parse )
+            db.get( `todo:${ id }` ).then( value => JSON.parse( value ) )
         );
     }
 
@@ -54,7 +54,7 @@ exports.update = ( id, update ) => {
                                     .put( `todo-completed-${ newTodo.completed }:${ id }`, id );
                 }
 
-                return batch.write();
+                return batch.write().then( () => newTodo );
             },
             ( err ) => {
                 return err.notFound ? null : Promise.reject( err );
@@ -67,8 +67,8 @@ exports.remove = ( id ) => {
         .then( ( content ) => {
             return db.batch()
                 .del( `todo:${ id }` )
-                .delete( `todo-completed-true:${ id }` )
-                .delete( `todo-completed-false:${ id }` )
+                .del( `todo-completed-true:${ id }` )
+                .del( `todo-completed-false:${ id }` )
                 .write()
                 .then( () => id );
         },

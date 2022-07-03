@@ -6,7 +6,8 @@
   "scripts": {
     "file-system": "node app",
     "sqlite": "node app",
-    "leveldb": "node app"
+    "leveldb": "node app",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,13 @@
     "level": "^6.0.1",
     "sqlite3": "^5.0.8",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2"
+  },
+  "jest": {
+    "testMatch": ["**/test/**/*.js"],
+    "clearMocks": true,
+    "restoreMocks": true
   }
 }
