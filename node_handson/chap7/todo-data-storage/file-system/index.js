@@ -9,8 +9,6 @@ exports.fetchAll = async () => {
                                 return extname( file ) === '.json';
                             } );
 
-    console.log( 'files', files );
-
     return Promise.all(
         files.map( ( file ) => {
             return readFile( `${ __dirname }/${ file }`, 'utf8' )

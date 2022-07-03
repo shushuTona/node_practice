@@ -31,8 +31,6 @@ app.get( '/api/todos', ( req, res, next ) => {
 app.post( '/api/todos', ( req, res, next ) => {
     const { title } = req.body;
 
-    console.log( 'title', title );
-
     if (
         typeof title !== 'string' || !title
     ) {
