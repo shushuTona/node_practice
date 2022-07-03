@@ -29,7 +29,10 @@ app.get( '/api/todos', ( req, res, next ) => {
 
 // ToDoの新規登録
 app.post( '/api/todos', ( req, res, next ) => {
-    const title = req.body;
+    const { title } = req.body;
+
+    console.log( 'title', title );
+
     if (
         typeof title !== 'string' || !title
     ) {
@@ -71,7 +74,7 @@ app.route( '/api/todos/:id/completed' )
 
 // ToDoの削除
 app.delete( '/api/todos/:id', ( req, res, next ) => {
-    dataStorage.delete( req.params.id )
+    dataStorage.remove( req.params.id )
         .then( ( id ) => {
             if (
                 id !== null
