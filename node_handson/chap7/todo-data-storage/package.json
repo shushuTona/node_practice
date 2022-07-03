@@ -7,7 +7,8 @@
     "file-system": "node app",
     "sqlite": "node app",
     "leveldb": "node app",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +20,13 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "jest": "^28.1.2"
+    "jest": "^28.1.2",
+    "supertest": "^6.2.4"
   },
   "jest": {
-    "testMatch": ["**/test/**/*.js"],
+    "testMatch": [
+      "**/test/**/*.js"
+    ],
     "clearMocks": true,
     "restoreMocks": true
   }
