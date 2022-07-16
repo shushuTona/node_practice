@@ -1,0 +1,21 @@
+{
+  "name": "chap10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "precreateDir": "echo \"ディレクトリ作成開始\"",
+    "createDir": "mkdirp",
+    "postcreateDir": "echo \"ディレクトリ作成終了\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inherits": "^1.0.2",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "mkdirp": "^1.0.4"
+  }
+}

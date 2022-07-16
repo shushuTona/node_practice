@@ -1,0 +1,15 @@
+{
+  "name": "pack_b",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "greeting": "greeting"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pack_a": "file:../pack_a"
+  }
+}
