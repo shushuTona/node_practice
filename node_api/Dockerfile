@@ -1,4 +1,4 @@
-FROM node:18.2
+FROM node:18.7
 
 RUN mkdir /node_api
 
