@@ -3,7 +3,6 @@
 const stream = require( 'node:stream' );
 
 const writable = new stream.Writable( {
-    highWaterMark: 1,
     construct ( callback ) {
         this.data = [];
         callback();
