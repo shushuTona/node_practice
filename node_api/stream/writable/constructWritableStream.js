@@ -8,6 +8,9 @@ const writable = new stream.Writable( {
     // https://github.com/nodejs/node/blob/v18.7.0/lib/internal/streams/destroy.js#L231
     construct ( callback ) {
         console.log('===== construct =====');
+
+        // nextTickでの実行時にonConstructをcallbackとして実行
+        // https://github.com/nodejs/node/blob/v18.7.0/lib/internal/streams/destroy.js#L275
         callback();
     },
 
