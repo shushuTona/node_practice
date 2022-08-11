@@ -9,7 +9,7 @@ class myWritable extends stream.Writable {
     }
 
     _write ( chunk, encoding, callback ) {
-        this.data += chunk.toString() + "\n";
+        this.data += ( this.data.length === 0 ? '' : '/') + chunk.toString();
         callback();
     }
 }
@@ -20,7 +20,7 @@ writable.on( 'close', () => {
     console.log( writable.data );
 } );
 
-writable.write( 'chunk 1' );
-writable.write( 'chunk 2' );
-writable.write( 'chunk 3' );
+writable.write( 'A' );
+writable.write( 'B' );
+writable.write( 'C' );
 writable.end();

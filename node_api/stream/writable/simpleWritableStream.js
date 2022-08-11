@@ -18,6 +18,5 @@ writable.on( 'close', () => {
 writable.write( 'chunk1' );
 writable.write( 'chunk2' );
 writable.write( 'chunk3' );
-writable.write( 'chunk4' );
-writable.write( 'chunk5' );
+
 writable.end();
